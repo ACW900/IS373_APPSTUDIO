@@ -1,16 +1,16 @@
 {
-  "name": "Your Project",
-  "audience": "Not chosen yet",
-  "archetype": "Not chosen yet",
-  "promise": "Not chosen yet",
-  "headline": "A small idea. A real application.",
-  "summary": "This working page is your starting point. Give it a purpose and a brand, then build accounts and permissions one feature at a time.",
-  "voice": ["Not chosen yet"],
-  "design_direction": "Not chosen yet",
+  "name": "Save Point",
+  "audience": "A gamer looking for news about his favorite games",
+  "archetype": "Everyman (a friendly fellow player), with a Sage influence on detail",
+  "promise": "New patch? Get caught up from the last time you played.",
+  "headline": "Pick up where you left off.",
+  "summary": "Been away for a while? Save Point is a place to check what changed in the games you love before you jump back in.",
+  "voice": ["Friendly, like a fellow player", "Straightforward and low-pressure", "Detailed when it matters"],
+  "design_direction": "Simple and uncluttered: navy background, white text, bright red highlights",
   "palette": {
-    "ink": "#182C34",
-    "paper": "#F6F5EF",
-    "accent": "#285A50",
-    "surface": "#FFFFFF"
+    "ink": "#FFFFFF",
+    "paper": "#0F1B33",
+    "accent": "#FF5A5F",
+    "surface": "#1A2A4A"
   }
 }
