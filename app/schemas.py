@@ -10,7 +10,7 @@ class SignupInput(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
     username: str = Field(min_length=3, max_length=32, strict=True)
-    password: str = Field(min_length=15, max_length=128, strict=True)
+    password: str = Field(min_length=8, max_length=128, strict=True)
 
     @field_validator("username")
     @classmethod
@@ -36,6 +36,24 @@ class LoginInput(BaseModel):
     def normalize_username(cls, value: str) -> str:
         """Use the same identity normalization as signup."""
         return value.strip().lower()
+
+
+class GameInput(BaseModel):
+    """One saved game name; the owner always comes from the session, never input."""
+
+    model_config = ConfigDict(extra="forbid")
+    name: str = Field(min_length=1, max_length=60, strict=True)
+
+    @field_validator("name")
+    @classmethod
+    def tidy_name(cls, value: str) -> str:
+        """Collapse spacing and refuse invisible control characters."""
+        tidy = " ".join(value.split())
+        if not tidy:
+            raise ValueError("Type a game name first.")
+        if any(not character.isprintable() for character in tidy):
+            raise ValueError("Use ordinary letters, numbers and punctuation.")
+        return tidy
 
 
 class PublicUser(BaseModel):

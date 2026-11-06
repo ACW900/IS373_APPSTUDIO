@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Your member space · {{ brand.name }}{% endblock %}
+{% block content %}
+<section class="member" aria-labelledby="member-title">
+  <p class="eyebrow">Hey, {{ user.username }}</p>
+  <h1 id="member-title">Your member space</h1>
+  <p class="lede">Here's your list of games to catch up on. Add the ones you're coming back to.</p>
+</section>
+<section class="panel" aria-labelledby="games-title">
+  <div class="panel-head">
+    <h2 id="games-title">Your saved games</h2>
+  </div>
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  {% if games %}
+  <ul class="game-list">
+    {% for game in games %}
+    <li>
+      <span>{{ game.name }}</span>
+      <form method="post" action="/dashboard/games/{{ game.id }}/remove">
+        <input type="hidden" name="csrf_token" value="{{ csrf }}">
+        <button class="quiet-button" type="submit" aria-label="Remove {{ game.name }}">Remove</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="muted">Nothing saved yet. Add a game you're playing, or one you've been meaning to get back to.</p>
+  {% endif %}
+  <form class="add-game" method="post" action="/dashboard/games">
+    <input type="hidden" name="csrf_token" value="{{ csrf }}">
+    <label for="game-name">Game name</label>
+    <div class="add-row">
+      <input id="game-name" name="name" required maxlength="60" autocomplete="off">
+      <button class="button" type="submit">Save game</button>
+    </div>
+  </form>
+  <p class="fine-print">Coming later: patch and update notes for each game on your list. For now, this is your list, and only you can see it.</p>
+</section>
+<form class="logout" method="post" action="/logout">
+  <input type="hidden" name="csrf_token" value="{{ csrf }}">
+  <button class="quiet-button" type="submit">Log out</button>
+</form>
+{% endblock %}
