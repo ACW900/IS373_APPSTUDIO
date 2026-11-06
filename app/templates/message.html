@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · {{ brand.name }}{% endblock %}
+{% block content %}
+<section class="form-stack" aria-labelledby="message-title">
+  <h1 id="message-title">{{ title }}</h1>
+  <p role="alert">{{ message }}</p>
+  <p><a class="text-link" href="/dashboard">Back to your member space</a></p>
+</section>
+{% endblock %}

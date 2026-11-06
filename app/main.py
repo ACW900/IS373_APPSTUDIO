@@ -12,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from app import branding, database, security
-from app.features import accounts, roles
+from app.features import accounts, games, roles
 from app.settings import Settings
 from studio_tools.live import revision as current_revision
 
@@ -37,6 +37,7 @@ def create_app(settings=None):
         settings.mode == "development" and os.getenv("STUDIO_LIVE_RELOAD", "1") == "1"
     )
     application.include_router(accounts.router)
+    application.include_router(games.router)
     application.include_router(roles.router)
     application.state.feature_flags = lambda: {
         "accounts": any(route.path == "/api/me" for route in accounts.router.routes),

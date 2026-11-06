@@ -64,6 +64,14 @@ def initialize(settings: Settings) -> None:
                 started_at INTEGER NOT NULL,
                 attempts INTEGER NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS saved_games (
+                id TEXT PRIMARY KEY,
+                user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                name TEXT NOT NULL,
+                name_key TEXT NOT NULL,
+                created_at INTEGER NOT NULL,
+                UNIQUE(user_id, name_key)
+            );
             CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires_at);
             CREATE INDEX IF NOT EXISTS attempts_start ON login_attempts(started_at);
             """)

@@ -50,13 +50,33 @@ Accuracy approval is not proof of understanding. Label simulated trials explicit
 
 ## APP-002
 
-- Prediction: Pending.
-- Check interpretation: Pending.
-- Browser observation: Pending.
-- Keep decision: Pending.
-- Review: Pending.
-- Help/gaps: Pending.
-- Evidence links / next step: Keep APP-001 before agreeing this lesson.
+- Prediction: Asked what Save Point stores in its database for a signup password:
+  "a secure hash."
+- Check interpretation: Shown `test_logout_revokes_a_copied_token_and_get_does_not_log_out`
+  (copy the login cookie, log out, replay it on `GET /api/me`; expects 200 before,
+  401 after, 405 for GET logout; passed): "this would stop people from faking who they
+  are from a stolen device." (AI note: it covers a copied cookie used after logout; a
+  cookie stolen before logout still works until it expires, up to 15 minutes.)
+- Browser observation: Own throwaway account on the local page: "after i hit log out it
+  put me right back to the login screen." (Revisit of /dashboard after logout not
+  separately reported.)
+- Keep decision: Keep. "it works for now we can always add in the future."
+- Review: On 2026-11-06 the learner was shown the new APP-002 excerpts and AI-help
+  summary and confirmed: "Yes, accurate," before commit. Approval covers record
+  accuracy only.
+- Help/gaps: Learner described the after-login view ("each game the user has
+  marked/saved with the latest changes/update info"). AI explained that real update info
+  needs a news source and offered two sizes; learner chose B (save game names, no update
+  info). Before login (learner): "please make an account in order to continue and point
+  them towards a login"; learner's public game-page idea kept for later. Learner asked
+  for pages that feel friendly (Everyman) with Sage detail. AI built the routes, pages,
+  saved-games table and tests using the prepared security helpers.
+  Learner asked to lower the password minimum to 7 ("most passwords that are made
+  quickly are around 8 characters"); AI explained the template's 15 follows NIST
+  guidance and advised against 7; learner chose 8. Learner asked: "dont tell the user
+  the cap unless they go over"; AI hid the displayed limits (server still enforces them).
+- Evidence links / next step: [Issue #3](https://github.com/ACW900/IS373_APPSTUDIO/issues/3);
+  branch `app-002-accounts`. Next: accuracy review, then commit, PR and CI.
 
 ## APP-003
 
