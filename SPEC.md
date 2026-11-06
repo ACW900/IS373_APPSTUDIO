@@ -8,7 +8,7 @@ actual evidence; pending is a valid state. Keep explanations/help in
 
 - **Current feature:** APP-001.
 - **Status:** Neutral foundation; learner scope and decisions pending.
-- **Next step:** Confirm the local clone and SSH origin, run setup and try the page.
+- **Next step:** Clone, setup and first page view done; agree the APP-001 identity.
 - **Implementation marker:** `studio.json` starts at `implemented_through: 0`.
 
 This repository owns application code. Server/proxy changes and production
@@ -23,10 +23,11 @@ Keep account actions honest about their unfinished state.
 
 | Decision | Agreement |
 |---|---|
-| Visitor and concrete use situation | Pending |
-| Reused IS117 brand, or name / promise / primary archetype | Pending |
-| One visible choice and visitor benefit | Pending |
-| Own issue / branch / PR | Pending |
+| Visitor and concrete use situation | "a gamer looking for news about his favorite games" |
+| Reused IS117 brand, or name / promise / primary archetype | New identity (not reusing IS117). Working name: **Save Point** (picked from AI suggestions). Promise (learner's words): "New patch get caught up from the last time you played." Primary archetype: **Everyman** (friendly fellow player), with a Sage influence: "the grity data" in the content. |
+| One visible choice and visitor benefit | Friendly fellow-player (Everyman) voice. Learner's reason: "It makes them want to pick the game back up without the pressure an expert may exude." |
+| Look / style tokens | Simple, uncluttered. Navy background, bright red highlight, white text. |
+| Own issue / branch / PR | [ACW900/IS373_APPSTUDIO#1](https://github.com/ACW900/IS373_APPSTUDIO/issues/1) / `app-001-homepage` / PR pending |
 
 **Keep when:** the agreed identity is visible and usable at desktop/narrow widths;
 full foundation + APP-001 checks pass; AI review and the learner's actual check
@@ -81,7 +82,7 @@ customer research or claims that a timestamp proves learning.
 
 | Feature | Files / own issue / PR | Actual checks and learner observations | Kept / GitHub state |
 |---|---|---|---|
-| APP-001 | Pending | Not run; learner contributions pending | Pending |
+| APP-001 | `app/brand.json`, `app/templates/home.html`, `app/templates/base.html`, `app/static/logo.svg`, `app/static/site.css`; [issue #1](https://github.com/ACW900/IS373_APPSTUDIO/issues/1) | Local Windows full check (2026-11-06): Black, Pylint, 2 APP-001 contracts and 2 Chromium journeys passed; 95 foundation tests passed, 1 failed only because Windows denied symlink creation (privilege, not app code); CI pending. AI viewed desktop and 375px layouts (no horizontal scroll). Learner check interpretation/observation pending | Pending |
 | APP-002 | Pending | Unfinished; explicit contracts not yet passed | Pending |
 | APP-003 | Pending | Unfinished; explicit contracts not yet passed | Pending |
 
