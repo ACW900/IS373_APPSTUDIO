@@ -72,6 +72,13 @@ def initialize(settings: Settings) -> None:
                 created_at INTEGER NOT NULL,
                 UNIQUE(user_id, name_key)
             );
+            CREATE TABLE IF NOT EXISTS patch_status (
+                id TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                name_key TEXT NOT NULL UNIQUE,
+                no_longer_patched INTEGER NOT NULL DEFAULT 1
+                    CHECK(no_longer_patched IN (0, 1))
+            );
             CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires_at);
             CREATE INDEX IF NOT EXISTS attempts_start ON login_attempts(started_at);
             """)

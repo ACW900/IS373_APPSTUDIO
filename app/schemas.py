@@ -56,6 +56,13 @@ class GameInput(BaseModel):
         return tidy
 
 
+class PatchToggle(BaseModel):
+    """Admin-only change to one game's 'no longer getting patches' marker."""
+
+    model_config = ConfigDict(extra="forbid")
+    no_longer_patched: bool = Field(strict=True)
+
+
 class PublicUser(BaseModel):
     """Never return a password hash or a session identifier."""
 
