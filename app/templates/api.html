@@ -12,7 +12,7 @@
     <li><a href="/api/me">GET /api/me</a> returns the current user, or 401 when not logged in.</li>
     <li><code>POST /api/logout</code> revokes the current session. A copied old JWT must stop working.</li>
     <li><a href="/api/games">GET /api/games</a> lists your saved games (401 when logged out). <code>POST /api/games</code> adds <code>{"name": "..."}</code>; <code>DELETE /api/games/{id}</code> removes one of yours. Both need the <code>X-CSRF-Token</code> header.</li>
-    {% if features.roles %}<li><a href="/api/admin">GET /api/admin</a>: anonymous → 401; member → 403; admin → 200.</li>{% endif %}
+    {% if features.roles %}<li><a href="/api/admin">GET /api/admin</a>: anonymous → 401; member → 403; admin → 200 with the patch-status list. <code>POST /api/admin/games</code> and <code>PATCH /api/admin/games/{id}</code> (admin plus <code>X-CSRF-Token</code>) add a game or set <code>no_longer_patched</code>.</li>{% endif %}
   </ul>
   <p>JWTs are signed, not encrypted. This app keeps them in an HttpOnly cookie and checks the current SQLite session and role on each protected request. Never put passwords or tokens in a URL.</p>
   {% else %}<p>Accounts are not implemented yet. Their routes will appear here as you build the next lesson.</p>{% endif %}

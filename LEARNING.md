@@ -80,10 +80,30 @@ Accuracy approval is not proof of understanding. Label simulated trials explicit
 
 ## APP-003
 
-- Prediction: Pending.
-- Check interpretation: Pending.
-- Browser observation: Pending.
-- Keep decision: Pending.
-- Review: Pending.
-- Help/gaps: Pending.
-- Evidence links / next step: Keep APP-002 before agreeing this lesson.
+- Prediction: Asked what happens when a logged-in member types `/api/admin` directly:
+  "They are denied and maybe if it is a frequent problem they are banned/flagged in our
+  system."
+- Check interpretation: Shown `test_trusted_role_change_applies_to_the_existing_session`
+  (member promoted to admin by the trusted command → 200 on `/api/admin` and `/admin`;
+  downgraded → 403 on the same session; passed): "this keeps out people who are trying
+  to fake being a admin user." (AI note: this test specifically catches a stale role,
+  e.g. a downgraded admin keeping access until logout; faking a role in the token is
+  covered by the separate role-claim test.)
+- Browser observation: After logging in as the AI-created local `test_admin` account,
+  first said "it works"; asked for one detail: "the button was a toggle like i
+  mentioned but i would like it if a game that was still getting patches was green."
+- Keep decision: Revise: show a game that is still getting patches in green. AI
+  changed the "Still getting patches" badge on the admin page to green.
+- Review: On 2026-11-06 the learner was shown the new APP-003 excerpts and AI-help
+  summary and confirmed: "Yes, accurate," before commit. Approval covers record
+  accuracy only.
+- Help/gaps: Learner proposed the admin idea (manage games no longer updated; a toggle
+  that shows players an indicator; deletion rarely needed). AI narrowed it to an add/
+  toggle "no longer patched" list plus a member badge; learner agreed ("if it shifts
+  during conversation we can adjust"). Learner's ban/flag idea for repeat attempts kept
+  for later. Learner working remotely; AI built the routes, pages, tests and ran the
+  trusted role command on a throwaway local account.
+  At the learner's request AI created a local `test_admin` account (password kept in
+  ignored `runtime/`, not in chat) and promoted it with the trusted command.
+- Evidence links / next step: [Issue #5](https://github.com/ACW900/IS373_APPSTUDIO/issues/5);
+  branch `app-003-roles`. Next: accuracy review, then commit, PR and CI.

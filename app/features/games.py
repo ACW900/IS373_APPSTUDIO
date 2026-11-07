@@ -25,14 +25,25 @@ GameId = Annotated[str, Path(min_length=1, max_length=64)]
 CsrfHeader = Annotated[str | None, Header()]
 
 
-def list_games(settings: Settings, user_id: str) -> list[dict[str, str]]:
-    """Only this member's games, oldest first."""
+def list_games(settings: Settings, user_id: str) -> list[dict]:
+    """Only this member's games, oldest first, with the admin patch marker."""
     with connect(settings) as connection:
         rows = connection.execute(
-            "SELECT id, name FROM saved_games WHERE user_id = ? ORDER BY rowid",
+            """SELECT saved.id, saved.name,
+                      COALESCE(status.no_longer_patched, 0) AS no_longer_patched
+               FROM saved_games AS saved
+               LEFT JOIN patch_status AS status ON status.name_key = saved.name_key
+               WHERE saved.user_id = ? ORDER BY saved.rowid""",
             (user_id,),
         ).fetchall()
-    return [{"id": row["id"], "name": row["name"]} for row in rows]
+    return [
+        {
+            "id": row["id"],
+            "name": row["name"],
+            "no_longer_patched": bool(row["no_longer_patched"]),
+        }
+        for row in rows
+    ]
 
 
 def add_game(settings: Settings, user_id: str, name: str) -> dict[str, str]:

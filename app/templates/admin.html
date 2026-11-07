@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Administration · {{ brand.name }}{% endblock %}
+{% block content %}
+<section class="member" aria-labelledby="admin-title">
+  <p class="eyebrow">Admin tools</p>
+  <h1 id="admin-title">Administration</h1>
+  <p class="lede">Mark the games that aren't getting patches anymore. Players with a matching game on their list will see a "No longer patched" badge.</p>
+</section>
+<section class="panel" aria-labelledby="status-title">
+  <h2 id="status-title">Patch status</h2>
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  {% if games %}
+  <ul class="game-list">
+    {% for game in games %}
+    <li>
+      <span>{{ game.name }}
+        {% if game.no_longer_patched %}<span class="badge">No longer patched</span>{% else %}<span class="badge badge-good">Still getting patches</span>{% endif %}
+      </span>
+      <form method="post" action="/admin/games/{{ game.id }}/toggle">
+        <input type="hidden" name="csrf_token" value="{{ csrf }}">
+        <button class="quiet-button" type="submit" aria-label="{{ 'Mark ' ~ game.name ~ (' as still getting patches' if game.no_longer_patched else ' as no longer patched') }}">{{ "Mark as still patched" if game.no_longer_patched else "Mark as no longer patched" }}</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="muted">No games marked yet. Add one below when a game stops getting updates.</p>
+  {% endif %}
+  <form class="add-game" method="post" action="/admin/games">
+    <input type="hidden" name="csrf_token" value="{{ csrf }}">
+    <label for="status-name">Game name</label>
+    <div class="add-row">
+      <input id="status-name" name="name" required maxlength="60" autocomplete="off">
+      <button class="button" type="submit">Add game</button>
+    </div>
+  </form>
+  <p class="fine-print">How matching works: the badge appears when a player's saved game has the same name, ignoring capital letters and extra spaces. Only admins can see this page or change these markers; the server checks your role on every request.</p>
+</section>
+{% endblock %}

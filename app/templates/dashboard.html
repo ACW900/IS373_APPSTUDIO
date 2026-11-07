@@ -15,7 +15,7 @@
   <ul class="game-list">
     {% for game in games %}
     <li>
-      <span>{{ game.name }}</span>
+      <span>{{ game.name }}{% if game.no_longer_patched %} <span class="badge">No longer patched</span>{% endif %}</span>
       <form method="post" action="/dashboard/games/{{ game.id }}/remove">
         <input type="hidden" name="csrf_token" value="{{ csrf }}">
         <button class="quiet-button" type="submit" aria-label="Remove {{ game.name }}">Remove</button>
@@ -34,7 +34,7 @@
       <button class="button" type="submit">Save game</button>
     </div>
   </form>
-  <p class="fine-print">Coming later: patch and update notes for each game on your list. For now, this is your list, and only you can see it.</p>
+  <p class="fine-print">A "No longer patched" badge means a Save Point admin marked that game as no longer getting updates. Coming later: patch notes for each game on your list. For now, this is your list, and only you can see it.</p>
 </section>
 <form class="logout" method="post" action="/logout">
   <input type="hidden" name="csrf_token" value="{{ csrf }}">
